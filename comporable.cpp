@@ -14,9 +14,8 @@ bool A::operator == (const Comparable& other) const {return  key == other.getKey
 bool A::operator != (const Comparable& other) const {return  key != other.getKey();}
 int  A::getKey()                              const {return  key;}
 
-
 B::B(int k) : key(new int(k))                       {}
-B::~B()                                             {delete key;}
+B::~B()                                             {delete  key;}
 bool B::operator <  (const Comparable& other) const {return *key <  other.getKey();}
 bool B::operator >  (const Comparable& other) const {return *key >  other.getKey();}
 bool B::operator <= (const Comparable& other) const {return *key <= other.getKey();}
@@ -29,7 +28,8 @@ int  B::getKey()                              const {return *key;}
 
 
 
-int main() {
+int main() 
+{
     // Создание объектов A и B
     A a1(10), a2(20);
     B b1(15), b2(25);

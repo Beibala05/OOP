@@ -1,5 +1,6 @@
 #include "vector3d.h"
 
+#include <iostream>
 #include <cmath>
 #include <stdexcept>
 
@@ -11,6 +12,8 @@ Vector3D::Vector3D() : std::valarray<double>(VECTOR_SIZE)
     this->operator[](1) = 0.0;
     this->operator[](2) = 0.0;
 }
+
+Vector3D::Vector3D(const std::valarray<double>& other) : std::valarray<double>(other) {}
 
 Vector3D::Vector3D(const Vector3D& other) : std::valarray<double>(other) {}
 
@@ -29,7 +32,7 @@ Vector3D::Vector3D(std::initializer_list<double> list) : std::valarray<double>(V
     }
 }
 
-Vector3D& Vector3D::operator=(const Vector3D& other)
+Vector3D& Vector3D::operator=(const std::valarray<double>& other)
 {
     if (this != &other) 
     {
@@ -38,38 +41,7 @@ Vector3D& Vector3D::operator=(const Vector3D& other)
     return *this;
 }
 
-Vector3D Vector3D::operator+(const Vector3D& other) const 
-{
-    return Vector3D(*this) += other;
-}
-
-Vector3D Vector3D::operator*(double scalar) const 
-{
-    Vector3D result(*this);
-    for (size_t i = 0; i < VECTOR_SIZE; ++i) 
-    {
-        result[i] *= scalar;
-    }
-    return result;
-}
-
-Vector3D Vector3D::operator+(double scalar) const 
-{
-    Vector3D result(*this);
-    result[3] += scalar;
-    return result;
-}
-
-Vector3D& Vector3D::operator+=(const Vector3D& other) 
-{
-    for (size_t i = 0; i < VECTOR_SIZE; ++i) 
-    {
-        (*this)[i] += other[i];
-    }
-    return *this;
-}
-
-int Vector3D::norm(int p)
+double Vector3D::norm(int p)
 {
     Vector3D vector(*this);
 
@@ -81,22 +53,11 @@ int Vector3D::norm(int p)
     );
 }
 
-Vector3D operator * (int scalar, const Vector3D& vector3d) 
-{
-    return vector3d * (double)scalar;
-}
-
-Vector3D operator + (int scalar, const Vector3D& vector3d) 
-{
-    return vector3d + (double)scalar;
-}
-
 std::ostream& operator << (std::ostream& os, const Vector3D& vector3d)
 {
     os << "(" << vector3d[0] << ", " << vector3d[1] << ", " << vector3d[2] << ")";
     return os;
 }
-
 
 int main() 
 {
@@ -110,10 +71,10 @@ int main()
 
         // z += w = {5, 10, 15} + {1, 2, 3} = {6, 12, 18}
 
-    z = 2 * w + v * 3; 
+    z = 2 * w + 3 * v; 
     z += w;
-    cout << z << endl;
-    cout << z.norm(2) << endl;
+    std::cout << z << std::endl;
+    std::cout << z.norm(2) << std::endl;
 
     return 0;
 }
