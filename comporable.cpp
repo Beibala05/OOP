@@ -30,36 +30,40 @@ int  B::getKey()                              const {return *key;}
 
 int main() 
 {
-    // Создание объектов A и B
     A a1(10), a2(20);
     B b1(15), b2(25);
 
-    // Проверка операций сравнения
-    std::cout << "a1 < b1: " << (a1 < b1) << "\n";  // true
-    std::cout << "a2 > b2: " << (a2 > b2) << "\n";  // false
-    std::cout << "b1 <= a2: " << (b1 <= a2) << "\n"; // true
-    std::cout << "b2 >= a1: " << (b2 >= a1) << "\n"; // true
-    std::cout << "a1 == a2: " << (a1 == a2) << "\n"; // false
-    std::cout << "b1 != b2: " << (b1 != b2) << "\n"; // true
+    std::cout << "a1 < b1:  " << (a1 <  b1) << "\n";  // true
+    std::cout << "a2 > b2:  " << (a2 >  b2) << "\n";  // false
+    std::cout << "b1 <= a2: " << (b1 <= a2) << "\n";  // true
+    std::cout << "b2 >= a1: " << (b2 >= a1) << "\n";  // true
+    std::cout << "a1 == a2: " << (a1 == a2) << "\n";  // false
+    std::cout << "b1 != b2: " << (b1 != b2) << "\n";  // true
 
-    // Создание вектора указателей на Comparable
-    std::vector<std::unique_ptr<Comparable>> vec;
-    vec.push_back(std::make_unique<A>(10));
-    vec.push_back(std::make_unique<B>(5));
-    vec.push_back(std::make_unique<A>(30));
-    vec.push_back(std::make_unique<B>(20));
+    std::vector<Comparable *> vec;
 
-    // Сортировка вектора
-    std::sort(vec.begin(), vec.end(), [](const std::unique_ptr<Comparable>& lhs, const std::unique_ptr<Comparable>& rhs) {
-        return *lhs < *rhs; // Сравнение через перегруженный оператор
+    vec.push_back(new A(10));
+    vec.push_back(new B(5));
+    vec.push_back(new A(30));
+    vec.push_back(new B(20));
+
+    std::sort(vec.begin(), vec.end(), [](const Comparable* lhs, const Comparable* rhs)
+    {
+        return *lhs < *rhs;
     });
+    
 
-    // Вывод отсортированного вектора
     std::cout << "Отсортированный вектор ключей:\n";
-    for (const auto& elem : vec) {
+    for (const auto& elem : vec) 
+    {
         std::cout << elem->getKey() << " ";
     }
-    std::cout << "\n";
+    std::cout << std::endl;
+
+    for (auto& elem : vec) 
+    {
+        delete elem;
+    }
 
     return 0;
 }

@@ -3,6 +3,8 @@
 #ifndef COMPARABLE
 #define COMPARABLE
 
+#include <iostream>
+
 struct Comparable 
 {
     virtual         ~Comparable()                                                       = default;
@@ -18,7 +20,7 @@ struct Comparable
 struct A : Comparable 
 {
                     A(int k);
-                    ~A()                                                      override  = default;
+                    ~A()                                                                = default;
     int             getKey()                                            const override;
     bool            operator <  (const Comparable& other)               const override;
     bool            operator >  (const Comparable& other)               const override;
@@ -34,7 +36,7 @@ struct A : Comparable
 struct B : Comparable 
 {
                     B(int k);    
-                    ~B()                                                      override;
+                    ~B();
     int             getKey()                                            const override;
     bool            operator <  (const Comparable& other)               const override;
     bool            operator >  (const Comparable& other)               const override;

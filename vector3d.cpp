@@ -13,9 +13,9 @@ Vector3D::Vector3D() : std::valarray<double>(VECTOR_SIZE)
     this->operator[](2) = 0.0;
 }
 
-Vector3D::Vector3D(const std::valarray<double>& other) : std::valarray<double>(other) {}
-
 Vector3D::Vector3D(const Vector3D& other) : std::valarray<double>(other) {}
+
+Vector3D::Vector3D(const std::valarray<double>& other) : std::valarray<double>(other) {}
 
 Vector3D::Vector3D(std::initializer_list<double> list) : std::valarray<double>(VECTOR_SIZE) 
 {
@@ -34,10 +34,11 @@ Vector3D::Vector3D(std::initializer_list<double> list) : std::valarray<double>(V
 
 Vector3D& Vector3D::operator=(const std::valarray<double>& other)
 {
-    if (this != &other) 
+    if (this != &other)
     {
         std::valarray<double>::operator=(other);
     }
+
     return *this;
 }
 

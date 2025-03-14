@@ -7,12 +7,13 @@
 #include <valarray>
 #include <initializer_list>
 
-struct Vector3D : std::valarray<double> 
+struct Vector3D : std::valarray<double>
 {
     Vector3D();
     Vector3D(const Vector3D& other);
     Vector3D(const std::valarray<double>& other);
     Vector3D(std::initializer_list<double> list);
+
     double norm(int p);
 
     Vector3D& operator = (const std::valarray<double>& other);
